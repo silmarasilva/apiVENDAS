@@ -8,6 +8,11 @@ from flask_basicauth import BasicAuth
 import requests
 
 
+
+a = open("/home/ubuntu/lb.txt", "r")
+lb_endpoint = f'http://{str(a.read()).strip}'
+a.close()
+
 basic_auth = auth
 
 
