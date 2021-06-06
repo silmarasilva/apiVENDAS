@@ -12,6 +12,7 @@ import requests
 a = open("/home/ubuntu/lb.txt", "r")
 lb_endpoint = f'http://{str(a.read()).strip}'
 a.close()
+print (lb_endpoint)
 
 basic_auth = auth
 
@@ -34,8 +35,8 @@ def add_compra():
             cursor = conn.cursor(pymysql.cursors.DictCursor)
 
             # Verificação se o Id do cliente confere com o db_clientes
-            cliente = requests.get(f'lb_endpoint/clientes/{_idCliente}', headers = {"Authorization":"Basic c2lsc2lsOjEyMzQ1Njc="})
-            curso = requests.get(f'lb_endpoint/cursos/{_idCurso}', headers = {"Authorization":"Basic c2lsc2lsOjEyMzQ1Njc="})
+            cliente = requests.get(f'{lb_endpoint}/clientes/{_idCliente}', headers = {"Authorization":"Basic c2lsc2lsOjEyMzQ1Njc="})
+            curso = requests.get(f'{lb_endpoint}/cursos/{_idCurso}', headers = {"Authorization":"Basic c2lsc2lsOjEyMzQ1Njc="})
             #status = requests.get(f'http://127.0.0.1:5200/cursos/status/{_idCurso}', headers = {"Authorization":"Basic c2lsc2lsOjEyMzQ1Njc="})         
 
             # Verificando se o cliente e o curso existem:                       
@@ -100,12 +101,12 @@ def id_compras (idCliente):
         # Buscando os dados dos clientes e do curso que constam no inventário (userRow) - JOIN        
         curso = [] #lista de json dos vários cursos comprados por um cliente
         #cliente = requests.get(f'http://127.0.0.1:5000/clientes/{idCliente}', headers = {"Authorization":"Basic c2lsc2lsOjEyMzQ1Njc="})
-        cliente = requests.get('lb_endpoint/clientes/{}'.format(idCliente), headers = {"Authorization":"Basic c2lsc2lsOjEyMzQ1Njc="})
+        cliente = requests.get('{lb_endpoint}/clientes/{}'.format(idCliente), headers = {"Authorization":"Basic c2lsc2lsOjEyMzQ1Njc="})
         for i in (userRow):
             #j = i['idCurso']
             #c = requests.get(f'http://127.0.0.1:5200/cursos/{j}', headers = {"Authorization":"Basic c2lsc2lsOjEyMzQ1Njc="})
             #c = requests.get('http://127.0.0.1:5200/cursos/{}'.format(i['idCurso']), headers = {"Authorization":"Basic c2lsc2lsOjEyMzQ1Njc="})
-            c = requests.get(f'lb_endpoint/cursos/{i["idCurso"]}', headers = {"Authorization":"Basic c2lsc2lsOjEyMzQ1Njc="})
+            c = requests.get(f'{lb_endpoint}/cursos/{i["idCurso"]}', headers = {"Authorization":"Basic c2lsc2lsOjEyMzQ1Njc="})
             i["data"] = f"{i['data']}"
             curso.append(c.json())
 
@@ -142,8 +143,8 @@ def update_curso(id):
             sqlQuery = "UPDATE tbl_cliente_compra_cursos SET data=%s, idCliente=%s, idCurso=%s, idCompra=%s WHERE idCompra=%s"
             bindData = (_data, _idCliente, _idCurso, _idCompra, id)
             # Verificação se o Id do cliente confere com o db_clientes
-            cliente = requests.get(f'lb_endpoint/clientes/{_idCliente}', headers = {"Authorization":"Basic c2lsc2lsOjEyMzQ1Njc="})            
-            curso = requests.get(f'lb_endpoint/cursos/{_idCurso}', headers = {"Authorization":"Basic c2lsc2lsOjEyMzQ1Njc="})
+            cliente = requests.get(f'{lb_endpoint}/clientes/{_idCliente}', headers = {"Authorization":"Basic c2lsc2lsOjEyMzQ1Njc="})            
+            curso = requests.get(f'{lb_endpoint}/cursos/{_idCurso}', headers = {"Authorization":"Basic c2lsc2lsOjEyMzQ1Njc="})
                        
             if cliente.status_code == 404:
                 return ('Cliente não encontrado'), 400
