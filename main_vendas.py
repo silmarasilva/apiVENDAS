@@ -101,7 +101,7 @@ def id_compras (idCliente):
         # Buscando os dados dos clientes e do curso que constam no inventário (userRow) - JOIN        
         curso = [] #lista de json dos vários cursos comprados por um cliente
         #cliente = requests.get(f'http://127.0.0.1:5000/clientes/{idCliente}', headers = {"Authorization":"Basic c2lsc2lsOjEyMzQ1Njc="})
-        cliente = requests.get('{lb_endpoint}/clientes/{}'.format(idCliente), headers = {"Authorization":"Basic c2lsc2lsOjEyMzQ1Njc="})
+        cliente = requests.get(f'{lb_endpoint}/clientes/{idCliente}', headers = {"Authorization":"Basic c2lsc2lsOjEyMzQ1Njc="})
         for i in (userRow):
             #j = i['idCurso']
             #c = requests.get(f'http://127.0.0.1:5200/cursos/{j}', headers = {"Authorization":"Basic c2lsc2lsOjEyMzQ1Njc="})
