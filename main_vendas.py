@@ -9,8 +9,8 @@ import requests
 
 
 
-a = open("/home/ubuntu/lb.txt", "r")
-lb_endpoint = f'http://{str(a.read()).strip}'
+a = open("/home/ubuntu/apiVENDAS/lb.txt", "r")
+lb_endpoint = f'http://{str(a.read()).strip()}'
 a.close()
 print (lb_endpoint)
 
